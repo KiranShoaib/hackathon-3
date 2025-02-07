@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { FiMenu } from 'react-icons/fi';
 import { IoClose } from 'react-icons/io5';
 
+
 function MobNav() {
     const [isOpen, setIsOpen] = useState(false);
 
@@ -62,6 +63,14 @@ function MobNav() {
                             onClick={handleOptionClick}
                         >
                             About Us
+                        </p>
+                    </Link>
+                    <Link href="/contact" passHref>
+                        <p
+                            className="text-[#726E8D] hover:text-gray-200 text-1xl"
+                            onClick={handleOptionClick}
+                        >
+                            Contact Us
                         </p>
                     </Link>
 

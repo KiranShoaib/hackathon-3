@@ -8,7 +8,8 @@ interface Product {
   _id: string;
   name: string;
   category: string;
-  slug: string;
+  brand: string;
+  slug: { current: string };
   image: string;
   price: number;
   quantity: number;
@@ -20,6 +21,7 @@ interface Product {
     width: number;
     depth: number;
   };
+  dateAdded: string;
 }
 
 interface ProductDetailProps {
@@ -27,22 +29,24 @@ interface ProductDetailProps {
 }
 
 const ProductDetailPage = async ({ params }: ProductDetailProps) => {
+
   const query = `
     *[_type == "product" && slug.current == $slug][0] {
       _id,
       name,
       "category": category->title,
-      slug,
+      "brand": brand->title,
+      "slug": slug.current,
       "image": image.asset->url,
       price,
       quantity,
       tags,
-      description,
-      features,
       dimensions {
         height,
         width,
         depth
+      },
+      
       }
     }
   `;
@@ -63,3 +67,5 @@ return (
 );
 };
 export default ProductDetailPage;
+
+

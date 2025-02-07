@@ -6,14 +6,18 @@ export const product = defineType({
     type: "document",
     fields: [
         defineField({
-            name:"category",
-            title:"Category",
-            type:"reference",
-            to:[{
-                type:"category"
-            }]
-        }
-        ),
+            name: "category",
+            title: "Category",
+            type: "reference",
+            to: [{ type: "category" }]
+        }),
+        defineField({
+            name: "brand",
+            title: "Brand",
+            type: "reference",
+            to: [{ type: "brand" }],
+            validation: (rule) => rule.required(),
+        }),
         defineField({
             name: "name",
             title: "Title",
@@ -43,38 +47,43 @@ export const product = defineType({
             title: "Quantity",
             type: "number",
             validation: (rule) => rule.min(0),
-          }),
+        }),
         defineField({
             name: "tags",
             type: "array",
             title: "Tags",
-            of:[{
-                type: "string"
-            }]
+            of: [{ type: "string" }]
         }),
         defineField({
-            name: 'description',
-            title: 'Description',
-            type: 'text',
-            description: 'Detailed description of the product',
-          }),
-          defineField({
-            name: 'features',
-            title: 'Features',
-            type: 'array',
-            of: [{ type: 'string' }],
-            description: 'List of key features of the product',
-          }),
-          defineField({
-            name: 'dimensions',
-            title: 'Dimensions',
-            type: 'object',
+            name: "description",
+            title: "Description",
+            type: "text",
+            description: "Detailed description of the product",
+        }),
+        defineField({
+            name: "features",
+            title: "Features",
+            type: "array",
+            of: [{ type: "string" }],
+            description: "List of key features of the product",
+        }),
+        defineField({
+            name: "dimensions",
+            title: "Dimensions",
+            type: "object",
             fields: [
-              { name: 'height', title: 'Height', type: 'string' },
-              { name: 'width', title: 'Width', type: 'string' },
-              { name: 'depth', title: 'Depth', type: 'string' },
+                { name: "height", title: "Height", type: "string" },
+                { name: "width", title: "Width", type: "string" },
+                { name: "depth", title: "Depth", type: "string" },
             ],
-            description: 'Dimensions of the product',
-          }),
+            description: "Dimensions of the product",
+        }),
+        defineField({
+            name: "dateAdded",
+            title: "Date Added",
+            type: "datetime",
+            description: "The date when the product was added",
+            validation: (rule) => rule.required(),
+        }),
     ]
-})
+});
