@@ -46,12 +46,13 @@ const ProductDetailPage = async ({ params }: ProductDetailProps) => {
         width,
         depth
       },
-      
-      }
+       dateAdded
     }
   `;
 
   const product: Product | null = await client.fetch(query, { slug: params.slug });
+
+  console.log("Fetched Product:", product); // 👈 Yeh line add karo
 
   if (!product) {
     return <div className="p-6">Product not found!</div>;
