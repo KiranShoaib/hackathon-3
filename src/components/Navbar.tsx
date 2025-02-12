@@ -3,8 +3,9 @@ import Link from "next/link";
 import { useState, useEffect, useRef } from "react";
 import { FiShoppingCart, FiSearch } from "react-icons/fi";
 import { IoPersonCircleOutline } from "react-icons/io5";
-import { FaRegHeart, FaHeart } from "react-icons/fa";
+import { FaRegHeart, FaHeart , FaSignInAlt} from "react-icons/fa";
 import { usePathname, useRouter } from "next/navigation";
+import { SignedIn, SignedOut, UserButton, SignInButton, SignUpButton } from "@clerk/nextjs";
 
 interface Product {
   _id: string;
@@ -173,9 +174,15 @@ function Navbar() {
              </Link>
 
              {/* 👤 Profile */}
-             <Link href="/">
-               <IoPersonCircleOutline className="w-6 h-6 text-[#726E8D]" />
-             </Link>
+             <SignedOut>
+            <SignInButton mode="modal">
+                <IoPersonCircleOutline className="text-xl w-6 h-6 text-[#726E8D]"/>
+            </SignInButton>
+          </SignedOut>
+
+          <SignedIn>
+            <UserButton />
+          </SignedIn>
            </div>
          </div>
        </div>
@@ -192,3 +199,5 @@ function Navbar() {
 }
 
 export default Navbar;
+
+

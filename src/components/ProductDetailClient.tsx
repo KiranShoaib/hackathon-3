@@ -4,6 +4,8 @@ import { useState, useEffect } from "react";
 import Image from "next/image";
 import { FaPlus, FaMinus } from "react-icons/fa6";
 import { FaRegHeart, FaHeart } from "react-icons/fa";
+import { useAuth } from "@clerk/nextjs"; // Clerk Auth Hook
+import { useRouter } from "next/navigation"; 
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -75,7 +77,16 @@ const ProductDetailClient: React.FC<ProductDetailClientProps> = ({ product }) =>
   };
 
   // Add to Cart
+  const { isSignedIn } = useAuth();
+  const router = useRouter();
+
   const handleAddToCart = () => {
+    if (!isSignedIn) {
+      toast.error("Please log in to add items to cart!", { position: "bottom-right", autoClose: 2000 });
+      router.push("/sign-in"); // Redirect to login page
+      return;
+    }
+    
     const cart = JSON.parse(localStorage.getItem("cart") || "[]");
 
     const existingProduct = cart.find((item: Product) => item._id === product._id);

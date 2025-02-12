@@ -2,6 +2,8 @@
 
 import Image from "next/image";
 import React, { useState, useEffect } from "react";
+import { useAuth } from "@clerk/nextjs"; // Clerk Auth Hook
+import { useRouter } from "next/navigation"; 
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { RxCross2 } from "react-icons/rx";
@@ -39,7 +41,16 @@ const Wishlist = () => {
   };
 
   // Add product to cart (and notify navbar)
+  const { isSignedIn } = useAuth();
+  const router = useRouter();
+
   const handleAddToCart = (product: Product) => {
+    if (!isSignedIn) {
+      toast.error("Please log in to add items to cart!", { position: "bottom-right", autoClose: 2000 });
+      router.push("/sign-in"); // Redirect to login page
+      return;
+    }
+
     const cart = JSON.parse(localStorage.getItem("cart") || "[]");
 
     const existingProductIndex = cart.findIndex(
