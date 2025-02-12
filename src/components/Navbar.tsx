@@ -3,9 +3,9 @@ import Link from "next/link";
 import { useState, useEffect, useRef } from "react";
 import { FiShoppingCart, FiSearch } from "react-icons/fi";
 import { IoPersonCircleOutline } from "react-icons/io5";
-import { FaRegHeart, FaHeart , FaSignInAlt} from "react-icons/fa";
+import { FaRegHeart, FaHeart } from "react-icons/fa";
 import { usePathname, useRouter } from "next/navigation";
-import { SignedIn, SignedOut, UserButton, SignInButton, SignUpButton } from "@clerk/nextjs";
+import { SignedIn, SignedOut, UserButton, SignInButton } from "@clerk/nextjs";
 
 interface Product {
   _id: string;
